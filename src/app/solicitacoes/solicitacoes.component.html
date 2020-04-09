@@ -1,0 +1,34 @@
+<p-table #dt [columns]="cols" [value]="solicitacoes" [paginator]="true" [rows]="5">
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>
+                MARC 21
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <p-multiSelect *ngSwitchCase="'unidade'" [options]="unidades" defaultLabel="Todas as unidades" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <div>
+                    <i (click)="confirmar()" label="Salvar" class="pi pi-copy" style="font-size: 3em"></i>
+                </div>
+            
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
